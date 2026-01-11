@@ -1,0 +1,29 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 28, 25, 23; /* stone-900 */
+  --background-start-rgb: 250, 250, 249; /* stone-50 */
+  --background-end-rgb: 250, 250, 249;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Utilities */
+.font-serif {
+  font-family: var(--font-lora), serif;
+}
+
+.font-sans {
+  font-family: var(--font-inter), sans-serif;
+}
