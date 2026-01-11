@@ -96,7 +96,7 @@ export async function generateSvg({
         @font-face {
           font-family: 'ExportFont';
           src: url('${fontDataUrl}') format('truetype');
-          font-weight: normal;
+          font-weight: ${variant.fontWeight};
           font-style: normal;
         }
       `;
