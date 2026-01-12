@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Lora, Roboto, Playfair_Display, Oswald } from "next/font/google";
 import "./globals.css";
+import "./fonts.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });

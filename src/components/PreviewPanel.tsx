@@ -3,6 +3,10 @@
 import { useState, useEffect } from "react";
 import { generateSvg } from "../lib/svg";
 import { downloadImage } from "../lib/export";
+import { ensureFontLoaded } from "@/lib/fonts";
+import { getMood } from "@/lib/moods";
+import { getVariant } from "@/lib/variants";
+import { exportWallpaperCanvas } from "@/lib/canvasExport";
 
 interface PreviewPanelProps {
   text: string;
@@ -37,7 +41,7 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
           width,
           height
         });
-        
+
         if (active) {
           setSvgContent(svg);
         }
@@ -51,30 +55,27 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
     // Debounce generation slightly to avoid excessive calls during typing
     const timeoutId = setTimeout(generate, 300);
 
-    return () => { 
-      active = false; 
+    return () => {
+      active = false;
       clearTimeout(timeoutId);
     };
   }, [text, moodId, viewMode, variantId]);
 
-  const handleDownload = async (size: "mobile" | "desktop") => {
-    // Regenerate SVG with embedded fonts for export
+  const handleDownload = async (size: 'mobile' | 'desktop') => {
     const { width, height } = dimensions[size];
 
     try {
-      const svgToExport = await generateSvg({
-        text: text || "Quiet Goals",
+      await exportWallpaperCanvas({
+        text: text || 'Quiet Goals',
         moodId,
         variantId,
         width,
         height,
-        embedFont: true // Embed fonts for standalone image
+        filename: `quiet-goals-${size}.png`
       });
-
-      await downloadImage(svgToExport, `quiet-goals-${size}.png`, width, height, 'png');
     } catch (e) {
-      console.error("Download failed", e);
-      alert("Download failed.");
+      console.error('Export failed', e);
+      alert('Export failed.');
     }
   };
 
@@ -87,11 +88,10 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
             <button
               key={mode}
               onClick={() => setViewMode(mode)}
-              className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 ${
-                viewMode === mode 
-                  ? "bg-stone-900 text-white shadow-md" 
-                  : "text-stone-500 hover:text-stone-900"
-              }`}
+              className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 ${viewMode === mode
+                ? "bg-stone-900 text-white shadow-md"
+                : "text-stone-500 hover:text-stone-900"
+                }`}
             >
               {mode.charAt(0).toUpperCase() + mode.slice(1)}
             </button>
@@ -99,28 +99,27 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
         </div>
 
         <div className="flex gap-2">
-           <button
-             onClick={() => handleDownload("mobile")}
-             className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
-           >
-             Save Mobile
-           </button>
-           <button
-             onClick={() => handleDownload("desktop")}
-             className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
-           >
-             Save Desktop
-           </button>
+          <button
+            onClick={() => handleDownload("mobile")}
+            className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
+          >
+            Save Mobile
+          </button>
+          <button
+            onClick={() => handleDownload("desktop")}
+            className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
+          >
+            Save Desktop
+          </button>
         </div>
       </div>
 
       {/* Preview Canvas */}
-      <div 
-        className={`relative transition-all duration-500 ease-in-out ${
-          viewMode === "mobile" 
-            ? "w-[280px] aspect-[9/16]" 
-            : "w-full aspect-[16/9]"
-        } bg-stone-200 shadow-2xl shadow-stone-200/50 rounded-lg overflow-hidden ring-1 ring-black/5 mx-auto`}
+      <div
+        className={`relative transition-all duration-500 ease-in-out ${viewMode === "mobile"
+          ? "w-[280px] aspect-[9/16]"
+          : "w-full aspect-[16/9]"
+          } bg-stone-200 shadow-2xl shadow-stone-200/50 rounded-lg overflow-hidden ring-1 ring-black/5 mx-auto`}
       >
         {/* Loading State Overlay */}
         {loading && (
@@ -128,8 +127,8 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
             <span className="text-stone-400 text-sm animate-pulse">Updating...</span>
           </div>
         )}
-        
-        <div 
+
+        <div
           className={`w-full h-full transition-opacity duration-500 ${loading ? 'opacity-50' : 'opacity-100'} ${animate ? 'animate-pulse-slow' : ''}`}
           dangerouslySetInnerHTML={{ __html: svgContent }}
           style={{
@@ -153,9 +152,9 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
           }
         `}</style>
       </div>
-      
+
       {animate && (
-         <p className="text-[10px] text-stone-400 text-center">
+        <p className="text-[10px] text-stone-400 text-center">
           Animation active in preview. Exports are static.
         </p>
       )}

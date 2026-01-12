@@ -19,8 +19,8 @@ async function loadFontAsBase64(filename: string): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => {
-        // result is "data:font/ttf;base64,..."
-        resolve(reader.result as string);
+        const base64data = (reader.result as string).split(',')[1];
+        resolve(`data:font/ttf;base64,${base64data}`);
       };
       reader.onerror = reject;
       reader.readAsDataURL(blob);
@@ -86,23 +86,23 @@ export async function generateSvg({
   const x = width / 2;
 
   // Font Embedding
-  let fontStyles = '';
-  let fontFamilyStack = mood.fontFamily;
+  const fontStyles = '';
+  const fontFamilyStack = `'ExportFont', ${mood.fontFamilyCss}`;
 
-  if (embedFont) {
-    const fontDataUrl = await loadFontAsBase64(mood.fontFile);
-    if (fontDataUrl) {
-      fontStyles = `
-        @font-face {
-          font-family: 'ExportFont';
-          src: url('${fontDataUrl}') format('truetype');
-          font-weight: ${variant.fontWeight};
-          font-style: normal;
-        }
-      `;
-      fontFamilyStack = `'ExportFont', ${mood.fontFamily}`;
-    }
-  }
+  // if (embedFont) {
+  //   const fontDataUrl = await loadFontAsBase64(mood.fontFile);
+  //   if (fontDataUrl) {
+  //     fontStyles = `
+  //       @font-face {
+  //         font-family: 'ExportFont';
+  //         src: url('${fontDataUrl}') format('truetype');
+  //         font-weight: ${variant.fontWeight};
+  //         font-style: normal;
+  //       }
+  //     `;
+  //     fontFamilyStack = `'ExportFont', ${mood.fontFamilyCss}`;
+  //   }
+  // }
 
   // Generate SVG lines
   const textElements = lines.map((line, i) => {
