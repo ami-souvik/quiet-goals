@@ -1,6 +1,7 @@
 import { getMood } from './moods';
 import { getVariant } from './variants';
 import { wrapText, calculateFontSize } from './layout';
+import { generateBackgroundDefs, generateBackgroundRects } from './background';
 
 interface GenerateSvgParams {
   text: string;
@@ -88,21 +89,10 @@ export async function generateSvg({
   // Font Embedding
   const fontStyles = '';
   const fontFamilyStack = `'ExportFont', ${mood.fontFamilyCss}`;
-
-  // if (embedFont) {
-  //   const fontDataUrl = await loadFontAsBase64(mood.fontFile);
-  //   if (fontDataUrl) {
-  //     fontStyles = `
-  //       @font-face {
-  //         font-family: 'ExportFont';
-  //         src: url('${fontDataUrl}') format('truetype');
-  //         font-weight: ${variant.fontWeight};
-  //         font-style: normal;
-  //       }
-  //     `;
-  //     fontFamilyStack = `'ExportFont', ${mood.fontFamilyCss}`;
-  //   }
-  // }
+  
+  // Background Generation
+  const bgDefs = generateBackgroundDefs(mood);
+  const bgRects = generateBackgroundRects(mood);
 
   // Generate SVG lines
   const textElements = lines.map((line, i) => {
@@ -121,8 +111,9 @@ export async function generateSvg({
             letter-spacing: ${variant.letterSpacing};
           }
         </style>
+        ${bgDefs}
       </defs>
-      <rect width="100%" height="100%" fill="${mood.bgColor}" />
+      ${bgRects}
       ${textElements}
     </svg>
   `;

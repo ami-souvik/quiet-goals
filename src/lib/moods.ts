@@ -1,8 +1,25 @@
+export interface GradientStop {
+  offset: number; // 0 to 100
+  color: string;
+}
+
+export interface MoodBackground {
+  type: 'linear' | 'radial';
+  angle?: number; // in degrees, for linear
+  cx?: number; // percentage 0-100, for radial
+  cy?: number; // percentage 0-100, for radial
+  stops: GradientStop[];
+  grainOpacity: number; // 0 to 1
+  noiseScale?: number; // default 1
+  vignetteStrength: number; // 0 to 1
+}
+
 export interface Mood {
   id: string;
   label: string;
-  bgColor: string;
+  bgColor: string; // Fallback
   textColor: string;
+  background: MoodBackground;
 
   // DOM (SVG / React)
   fontFamilyCss: string;
@@ -21,6 +38,17 @@ export const MOODS: Record<string, Mood> = {
     label: 'Calm',
     bgColor: '#F0F4F8',
     textColor: '#486581',
+    background: {
+      type: 'linear',
+      angle: 165,
+      stops: [
+        { offset: 0, color: '#F0F4F8' },
+        { offset: 100, color: '#D9E2EC' }
+      ],
+      grainOpacity: 0.03,
+      noiseScale: 0.8,
+      vignetteStrength: 0.1
+    },
 
     fontFamilyCss: 'var(--font-roboto), sans-serif',
     fontFamilyCanvas: 'Roboto',
@@ -35,6 +63,17 @@ export const MOODS: Record<string, Mood> = {
     label: 'Focused',
     bgColor: '#FFFFFF',
     textColor: '#111827',
+    background: {
+      type: 'linear',
+      angle: 180,
+      stops: [
+        { offset: 0, color: '#FFFFFF' },
+        { offset: 100, color: '#F3F4F6' }
+      ],
+      grainOpacity: 0.015,
+      noiseScale: 0.5,
+      vignetteStrength: 0
+    },
 
     fontFamilyCss: 'var(--font-roboto), sans-serif',
     fontFamilyCanvas: 'Roboto',
@@ -49,6 +88,18 @@ export const MOODS: Record<string, Mood> = {
     label: 'Grounded',
     bgColor: '#FDF6E3',
     textColor: '#5D4037',
+    background: {
+      type: 'radial',
+      cx: 50,
+      cy: 40,
+      stops: [
+        { offset: 0, color: '#FDF6E3' },
+        { offset: 100, color: '#F3EAC2' }
+      ],
+      grainOpacity: 0.05,
+      noiseScale: 1.2,
+      vignetteStrength: 0.2
+    },
 
     fontFamilyCss: 'var(--font-playfair), serif',
     fontFamilyCanvas: 'Playfair Display',
@@ -63,6 +114,17 @@ export const MOODS: Record<string, Mood> = {
     label: 'Ambitious',
     bgColor: '#000000',
     textColor: '#FFFFFF',
+    background: {
+      type: 'linear',
+      angle: 135,
+      stops: [
+        { offset: 0, color: '#1A1A1A' },
+        { offset: 100, color: '#000000' }
+      ],
+      grainOpacity: 0.04,
+      noiseScale: 1.5,
+      vignetteStrength: 0.3
+    },
 
     fontFamilyCss: 'var(--font-oswald), sans-serif',
     fontFamilyCanvas: 'Oswald',

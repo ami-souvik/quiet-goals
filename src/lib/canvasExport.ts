@@ -2,6 +2,7 @@ import { getMood } from './moods';
 import { getVariant } from './variants';
 import { wrapText, calculateFontSize } from './layout';
 import { ensureFontLoaded } from './fonts';
+import { drawBackgroundToCanvas } from './background';
 
 function triggerDownload(blob: Blob, filename: string) {
     const url = URL.createObjectURL(blob);
@@ -55,8 +56,7 @@ export async function exportWallpaperCanvas({
     ctx.scale(dpr, dpr);
 
     // 3️⃣ Background
-    ctx.fillStyle = mood.bgColor;
-    ctx.fillRect(0, 0, width, height);
+    await drawBackgroundToCanvas(ctx, mood, width, height);
 
     // 4️⃣ Font size & line height
     const isMobile = width < height;
