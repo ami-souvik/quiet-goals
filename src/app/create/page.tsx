@@ -42,7 +42,7 @@ export default function CreatePage() {
                   name="milestone"
                   type="text"
                   autoFocus
-                  className="block w-full border-0 border-b-2 border-stone-200 bg-transparent py-4 px-0 text-2xl md:text-3xl font-serif text-stone-900 placeholder:text-stone-300 focus:border-stone-900 focus:ring-0 transition-colors"
+                  className="block w-full border-0 border-b-2 border-stone-200 bg-transparent py-4 px-0 text-2xl md:text-3xl font-serif text-stone-900 placeholder:text-stone-300 focus:border-stone-900 focus:ring-0 focus:outline-0 transition-colors"
                   placeholder="e.g. Healthy at 35"
                   value={milestone}
                   onChange={(e) => setMilestone(e.target.value)}

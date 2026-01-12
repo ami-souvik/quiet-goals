@@ -9,9 +9,18 @@ const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"], variable: "-
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
 
-export const metadata: Metadata = {
-  title: "Quiet Goals",
-  description: "Minimalist milestone wallpapers for daily reinforcement.",
+export const metadata = {
+  title: "Quiet Goals — Turn milestones into calm wallpapers",
+  description:
+    "Quiet Goals helps you turn your most important milestone into a calm, private wallpaper. No social feeds. No notifications. Just focus.",
+  keywords: [
+    "milestone wallpaper",
+    "goal wallpaper",
+    "minimalist wallpaper",
+    "focus wallpaper",
+    "personal goals",
+    "quiet motivation"
+  ],
 };
 
 export default function RootLayout({
