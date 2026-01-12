@@ -38,6 +38,44 @@ export default function Home() {
           </Link>
         </div>
 
+        {/* Examples Section */}
+        <section className="pt-20 pb-10 w-full">
+            <h3 className="text-sm font-bold text-stone-400 uppercase tracking-widest mb-10">
+                Examples
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto px-4">
+                {/* Calm Example */}
+                <div className="aspect-[9/16] rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5 relative group transition-transform hover:-translate-y-1 duration-300">
+                    <div className="absolute inset-0 bg-[#F0F4F8] flex items-center justify-center p-6">
+                        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F4F8] to-[#D9E2EC] opacity-50"></div>
+                        <span className="relative z-10 font-sans text-[#486581] text-2xl font-normal tracking-wide">
+                            Breathe Deeply
+                        </span>
+                    </div>
+                </div>
+
+                {/* Focused Example */}
+                <div className="aspect-[9/16] rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5 relative group transition-transform hover:-translate-y-1 duration-300">
+                    <div className="absolute inset-0 bg-[#FFFFFF] flex items-center justify-center p-6">
+                         <div className="absolute inset-0 bg-gradient-to-b from-[#FFFFFF] to-[#F3F4F6] opacity-50"></div>
+                        <span className="relative z-10 font-sans text-[#111827] text-2xl font-medium tracking-tight">
+                            Write Daily
+                        </span>
+                    </div>
+                </div>
+
+                {/* Ambitious Example */}
+                <div className="aspect-[9/16] rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5 relative group transition-transform hover:-translate-y-1 duration-300">
+                    <div className="absolute inset-0 bg-[#000000] flex items-center justify-center p-6">
+                         <div className="absolute inset-0 bg-gradient-to-br from-[#1A1A1A] to-[#000000] opacity-80"></div>
+                        <span className="relative z-10 font-sans text-white text-3xl font-bold uppercase tracking-widest">
+                            BUILD THE FUTURE
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {/* Subtle SEO footer text */}
         <footer className="pt-12 space-y-6">
           <p className="text-xs text-stone-400 max-w-md mx-auto leading-relaxed">
