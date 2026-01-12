@@ -76,21 +76,80 @@ export default function Home() {
             </div>
         </section>
 
-        {/* Subtle SEO footer text */}
-        <footer className="pt-12 space-y-6">
-          <p className="text-xs text-stone-400 max-w-md mx-auto leading-relaxed">
-            Quiet Goals is a minimalist tool for creating personal milestone wallpapers
-            designed for focus, clarity, and calm.
-          </p>
-          
-          <div className="pt-2">
-            <Link 
-              href="/blog" 
-              className="text-xs font-medium text-stone-500 hover:text-stone-900 border-b border-stone-200 hover:border-stone-900 transition-all duration-300"
-            >
-              Read Reflections
-            </Link>
-          </div>
+        {/* All You Need to Know Section */}
+        <section className="pt-24 pb-12 w-full max-w-2xl mx-auto text-left">
+           <h3 className="text-sm font-bold text-stone-400 uppercase tracking-widest mb-10 text-center">
+             All you need to know
+           </h3>
+           <div className="space-y-12">
+              <div>
+                 <h4 className="font-serif text-xl text-stone-900 mb-2">Is it private?</h4>
+                 <p className="text-stone-600 leading-relaxed font-light">
+                   Completely. Your goal is generated entirely in your browser. No data is sent to our servers. No cookies. No tracking. It stays between you and your screen.
+                 </p>
+              </div>
+              <div>
+                 <h4 className="font-serif text-xl text-stone-900 mb-2">Why wallpapers?</h4>
+                 <p className="text-stone-600 leading-relaxed font-light">
+                    On average, we unlock our phones 150 times a day. That’s 150 opportunities for a gentle nudge. A wallpaper is passive, non-intrusive, and always there.
+                 </p>
+              </div>
+              <div>
+                 <h4 className="font-serif text-xl text-stone-900 mb-2">The Philosophy</h4>
+                 <p className="text-stone-600 leading-relaxed font-light">
+                    Most apps scream for attention. Quiet Goals whispers. We believe that true focus doesn't need notifications—it just needs clarity.
+                 </p>
+              </div>
+           </div>
+        </section>
+
+        {/* Coming Soon Section */}
+        <section className="pt-12 pb-24 w-full">
+           <div className="bg-white border border-stone-200 rounded-3xl p-8 md:p-12 max-w-4xl mx-auto shadow-sm">
+              <h3 className="text-sm font-bold text-stone-400 uppercase tracking-widest mb-6">
+                Coming Soon to iOS & Android
+              </h3>
+              <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-6">
+                 Quiet Goals App
+              </h2>
+              <p className="text-stone-600 max-w-xl mx-auto mb-10 leading-relaxed">
+                 We are building a dedicated mobile experience to bring even more calm to your device.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                  <div className="p-4 bg-stone-50 rounded-xl">
+                     <span className="block text-xl mb-2">✨</span>
+                     <h4 className="font-medium text-stone-900 mb-1">Home Screen Widgets</h4>
+                     <p className="text-xs text-stone-500">Glanceable goals without unlocking.</p>
+                  </div>
+                  <div className="p-4 bg-stone-50 rounded-xl">
+                     <span className="block text-xl mb-2">🌙</span>
+                     <h4 className="font-medium text-stone-900 mb-1">Auto Dark Mode</h4>
+                     <p className="text-xs text-stone-500">Wallpapers that adapt to sunset.</p>
+                  </div>
+                   <div className="p-4 bg-stone-50 rounded-xl">
+                     <span className="block text-xl mb-2">☁️</span>
+                     <h4 className="font-medium text-stone-900 mb-1">iCloud Sync</h4>
+                     <p className="text-xs text-stone-500">Your goals across all devices.</p>
+                  </div>
+              </div>
+           </div>
+        </section>
+
+        {/* Minimalist Footer */}
+        <footer className="w-full border-t border-stone-200 pt-12 pb-8">
+           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-stone-500">
+              <p>© {new Date().getFullYear()} Quiet Goals.</p>
+              
+              <nav className="flex gap-6">
+                 <Link href="/blog" className="hover:text-stone-900 transition-colors">Reflections</Link>
+                 <a href="#" className="hover:text-stone-900 transition-colors cursor-not-allowed opacity-50" title="Coming soon">Twitter</a>
+                 <a href="#" className="hover:text-stone-900 transition-colors cursor-not-allowed opacity-50" title="No data collected">Privacy</a>
+              </nav>
+           </div>
+           <p className="mt-8 text-xs text-stone-400 font-light">
+              Designed for focus. Built with silence.
+           </p>
         </footer>
       </div>
     </main>
