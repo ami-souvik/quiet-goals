@@ -30,7 +30,7 @@ export default function CreatePage() {
           transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]
           flex flex-col
           lg:static lg:h-full lg:w-[420px] xl:w-[480px] lg:shadow-none lg:border-r lg:border-stone-100
-          ${hideControls ? 'h-[80px]' : 'h-[65vh]'}
+          ${hideControls ? 'h-[80px]' : 'h-[55vh]'}
           rounded-t-[32px] lg:rounded-none
         `}
       >
@@ -109,27 +109,27 @@ export default function CreatePage() {
       </div>
 
       {/* RIGHT COLUMN (Desktop) / TOP AREA (Mobile): Preview */}
-      <div className="flex-1 relative bg-stone-100 lg:bg-stone-50 flex flex-col items-center justify-center p-4 lg:p-0 transition-all duration-500">
+      <div className="flex-1 relative bg-stone-100 lg:bg-stone-50 flex flex-col items-center justify-center transition-all duration-500">
         {/* Mobile Header (When controls collapsed, maybe show title?) */}
 
         <div className={`
             w-full h-full flex items-center justify-center transition-all duration-500
-            ${hideControls ? 'pb-24 scale-100' : 'pb-[66vh] scale-95 lg:scale-100 lg:pb-0'}
+            ${hideControls ? 'pb-24 scale-100' : 'pb-[58vh] scale-95 lg:scale-100 lg:pb-0'}
          `}>
-                      <div className="w-full max-w-[400px] lg:max-w-none lg:w-full lg:h-full lg:flex lg:items-center lg:justify-center lg:sticky lg:top-0">
-                         <PreviewPanel
-                          {...{
-                            text: milestone,
-                            moodId: mood,
-                            variantId: variant,
-                            animate,
-                            bgMode,
-                            backgroundImage,
-                            isFetchingImage,
-                            mobileMaxHeight: hideControls ? '75vh' : '28vh'
-                          }}
-                        />
-                      </div>        </div>
+          <div className="w-full max-w-[400px] lg:max-w-none lg:w-full lg:h-full lg:flex lg:items-center lg:justify-center lg:sticky lg:top-0">
+            <PreviewPanel
+              {...{
+                text: milestone,
+                moodId: mood,
+                variantId: variant,
+                animate,
+                bgMode,
+                backgroundImage,
+                isFetchingImage,
+                mobileMaxHeight: hideControls ? '75vh' : '40vh'
+              }}
+            />
+          </div>        </div>
       </div>
 
     </div>

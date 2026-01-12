@@ -27,8 +27,6 @@ export default function ModeToggle({ viewMode, setViewMode }: { viewMode: "mobil
                         : "text-stone-500 hover:text-stone-900"
                         }`}
                 >
-
-                    <p className="hidden md:block">{mode.id.charAt(0).toUpperCase() + mode.id.slice(1)}</p>
                     <mode.icon className="w-5 h-5" />
                 </button>
             ))}

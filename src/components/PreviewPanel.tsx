@@ -95,20 +95,17 @@ export default function PreviewPanel({
   };
 
   return (
-    <div className="flex flex-col items-center w-full max-w-2xl mx-auto space-y-2">
+    <div className="flex flex-col justify-center items-center w-full h-full max-w-2xl mx-auto space-y-2">
       {/* Controls */}
-      <div className="flex flex-col gap-4 w-full">
-        <div className="w-full grid grid-cols-2 gap-4">
-          <ModeToggle {...{ viewMode, setViewMode }} />
-          <div className="flex justify-end gap-2">
-            <button
-              onClick={() => handleDownload(viewMode)}
-              className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
-            >
-              <RiDownloadLine className="w-5 h-5" />
-              <p className="hidden md:block">Save Desktop</p>
-            </button>
-          </div>
+      <div className="w-full absolute top-0 p-4 grid grid-cols-2 z-11 gap-4">
+        <ModeToggle {...{ viewMode, setViewMode }} />
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={() => handleDownload(viewMode)}
+            className="flex justify-center items-center px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
+          >
+            <RiDownloadLine className="w-5 h-5" />
+          </button>
         </div>
       </div>
 
@@ -117,13 +114,13 @@ export default function PreviewPanel({
         className={`
           relative transition-all duration-500 ease-in-out 
           bg-stone-200 shadow-2xl shadow-stone-200/50 rounded-lg overflow-hidden ring-1 ring-black/5 mx-auto
-          ${viewMode === "mobile" 
-            ? "w-auto h-auto max-w-full aspect-[9/16]" 
+          ${viewMode === "mobile"
+            ? "w-auto h-auto max-w-full aspect-[9/16]"
             : "w-full aspect-[16/9]"
           }
         `}
         style={{
-           maxHeight: viewMode === "mobile" ? mobileMaxHeight : undefined
+          maxHeight: viewMode === "mobile" ? mobileMaxHeight : undefined
         }}
       >
         {/* Loading State Overlay */}
