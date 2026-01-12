@@ -22,9 +22,9 @@ export default function CreatePage() {
 
   return (
     <div className="h-[100dvh] w-full bg-stone-50 overflow-hidden flex flex-col lg:flex-row">
-      
+
       {/* LEFT COLUMN (Desktop) / BOTTOM SHEET (Mobile): Controls */}
-      <div 
+      <div
         className={`
           fixed bottom-0 left-0 right-0 z-30 bg-white shadow-[0_-8px_30px_rgba(0,0,0,0.08)]
           transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]
@@ -35,26 +35,26 @@ export default function CreatePage() {
         `}
       >
         {/* Mobile Drag Handle / Header */}
-        <div 
-          className="flex lg:hidden items-center justify-between px-6 py-4 cursor-pointer border-b border-stone-50"
+        <div
+          className="flex lg:hidden items-center justify-between px-6 py-2 cursor-pointer border-b border-stone-50"
           onClick={() => setHideControls(!hideControls)}
         >
           <div className="flex items-center gap-3">
-             <div className="bg-stone-100 p-2 rounded-full text-stone-600">
-               {hideControls ? <IoMdCreate size={20} /> : <IoIosArrowUp size={20} className="rotate-180" />}
-             </div>
-             <div>
-               <h2 className="text-sm font-bold text-stone-900">
-                 {hideControls ? 'Edit Wallpaper' : 'Customize'}
-               </h2>
-               {hideControls && <p className="text-[10px] text-stone-400">Tap to expand controls</p>}
-             </div>
+            <div className="bg-stone-100 p-2 rounded-full text-stone-600">
+              {hideControls ? <IoMdCreate size={20} /> : <IoIosArrowUp size={20} className="rotate-180" />}
+            </div>
+            <div>
+              <h2 className="text-sm font-bold text-stone-900">
+                {hideControls ? 'Edit Wallpaper' : 'Customize'}
+              </h2>
+              {hideControls && <p className="text-[10px] text-stone-400">Tap to expand controls</p>}
+            </div>
           </div>
-          
-          <button 
-             className="p-2 text-stone-400 hover:text-stone-900 transition-colors"
+
+          <button
+            className="p-2 text-stone-400 hover:text-stone-900 transition-colors"
           >
-             {hideControls ? <IoIosArrowUp /> : <IoMdClose size={24} />}
+            {hideControls ? <IoIosArrowUp /> : <IoMdClose size={24} />}
           </button>
         </div>
 
@@ -71,67 +71,67 @@ export default function CreatePage() {
 
         {/* Scrollable Content */}
         <div className={`
-          flex-1 overflow-y-auto p-6 lg:p-8
+          flex-1 overflow-y-auto px-6 lg:p-8
           ${hideControls ? 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto' : 'opacity-100'}
           transition-opacity duration-300 delay-100
         `}>
-             <div className="lg:hidden mb-6">
-                 {/* Mobile-only header inside scroll area if needed, or keeping it clean */}
-             </div>
-             
-             <div className="hidden lg:block mb-8 space-y-1">
-                <h2 className="font-serif text-3xl text-stone-900">Design your goal.</h2>
-                <p className="text-stone-500 text-sm">Create a quiet reminder for your device.</p>
-             </div>
+          <div className="lg:hidden mb-6">
+            {/* Mobile-only header inside scroll area if needed, or keeping it clean */}
+          </div>
 
-            <ControlPanel
-              {...{
-                text: milestone,
-                setText: setMilestone,
-                moodId: mood,
-                setMood,
-                variantId: variant,
-                setVariant,
-                animate,
-                setAnimate,
-                bgMode,
-                setBgMode,
-                backgroundImage,
-                setBackgroundImage,
-                isFetchingImage,
-                setIsFetchingImage
-              }}
-            />
-            
-            {/* Extra padding for mobile bottom safe area */}
-            <div className="h-8 lg:hidden" />
+          <div className="hidden lg:block mb-8 space-y-1">
+            <h2 className="font-serif text-3xl text-stone-900">Design your goal.</h2>
+            <p className="text-stone-500 text-sm">Create a quiet reminder for your device.</p>
+          </div>
+
+          <ControlPanel
+            {...{
+              text: milestone,
+              setText: setMilestone,
+              moodId: mood,
+              setMood,
+              variantId: variant,
+              setVariant,
+              animate,
+              setAnimate,
+              bgMode,
+              setBgMode,
+              backgroundImage,
+              setBackgroundImage,
+              isFetchingImage,
+              setIsFetchingImage
+            }}
+          />
+
+          {/* Extra padding for mobile bottom safe area */}
+          <div className="h-8 lg:hidden" />
         </div>
       </div>
 
       {/* RIGHT COLUMN (Desktop) / TOP AREA (Mobile): Preview */}
       <div className="flex-1 relative bg-stone-100 lg:bg-stone-50 flex flex-col items-center justify-center p-4 lg:p-0 transition-all duration-500">
-         {/* Mobile Header (When controls collapsed, maybe show title?) */}
-         
-         <div className={`
+        {/* Mobile Header (When controls collapsed, maybe show title?) */}
+
+        <div className={`
             w-full h-full flex items-center justify-center transition-all duration-500
             ${hideControls ? 'pb-24 scale-100' : 'pb-[66vh] scale-95 lg:scale-100 lg:pb-0'}
          `}>
-            <div className="w-full max-w-[400px] lg:max-w-none lg:w-full lg:h-full lg:flex lg:items-center lg:justify-center lg:sticky lg:top-0">
-               <PreviewPanel
-                {...{
-                  text: milestone,
-                  moodId: mood,
-                  variantId: variant,
-                  animate,
-                  bgMode,
-                  backgroundImage,
-                  isFetchingImage
-                }}
-              />
-            </div>
-         </div>
+                      <div className="w-full max-w-[400px] lg:max-w-none lg:w-full lg:h-full lg:flex lg:items-center lg:justify-center lg:sticky lg:top-0">
+                         <PreviewPanel
+                          {...{
+                            text: milestone,
+                            moodId: mood,
+                            variantId: variant,
+                            animate,
+                            bgMode,
+                            backgroundImage,
+                            isFetchingImage,
+                            mobileMaxHeight: hideControls ? '75vh' : '28vh'
+                          }}
+                        />
+                      </div>        </div>
       </div>
-      
+
     </div>
   );
 }

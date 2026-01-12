@@ -14,6 +14,7 @@ interface PreviewPanelProps {
   bgMode: 'procedural' | 'image';
   backgroundImage: string | null;
   isFetchingImage: boolean;
+  mobileMaxHeight?: string;
 }
 
 export default function PreviewPanel({
@@ -23,7 +24,8 @@ export default function PreviewPanel({
   animate,
   bgMode,
   backgroundImage,
-  isFetchingImage
+  isFetchingImage,
+  mobileMaxHeight = '70vh'
 }: PreviewPanelProps) {
   const [viewMode, setViewMode] = useState<"mobile" | "desktop">("mobile");
   const [svgContent, setSvgContent] = useState<string>("");
@@ -116,10 +118,13 @@ export default function PreviewPanel({
           relative transition-all duration-500 ease-in-out 
           bg-stone-200 shadow-2xl shadow-stone-200/50 rounded-lg overflow-hidden ring-1 ring-black/5 mx-auto
           ${viewMode === "mobile" 
-            ? "w-auto h-auto max-w-full max-h-[70vh] aspect-[9/16]" 
+            ? "w-auto h-auto max-w-full aspect-[9/16]" 
             : "w-full aspect-[16/9]"
           }
         `}
+        style={{
+           maxHeight: viewMode === "mobile" ? mobileMaxHeight : undefined
+        }}
       >
         {/* Loading State Overlay */}
         {(loading || isFetchingImage) && (
