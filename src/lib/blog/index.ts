@@ -1,3 +1,12 @@
+export interface Blog {
+    slug: string;
+    title: string;
+    date: string;
+    content: string;
+    imgSrc?: string;
+    description?: string;
+}
+
 export { default as a } from "./designing-for-calm";
 export { default as b } from "./private-goals-are-powerful-goals";
 export { default as c } from "./why-we-built-quiet-goals";

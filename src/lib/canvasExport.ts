@@ -39,7 +39,7 @@ export async function exportWallpaperCanvas({
 
     // 1️⃣ Ensure font is loaded
     await ensureFontLoaded(
-        mood.fontFamily,
+        mood.fontFamilyCanvas,
         `/fonts/${mood.fontFile}`,
         variant.fontWeight
     );
