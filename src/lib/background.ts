@@ -1,4 +1,5 @@
 import { Mood } from './moods';
+import { getImageCssFilter, getCanvasFilter } from './filters';
 
 export function getGradientId(mood: Mood) {
   return `grad-${mood.id}`;
@@ -25,14 +26,6 @@ export function generateBackgroundDefs(mood: Mood): string {
     .join('\n');
 
   if (bg.type === 'linear') {
-    // Start with a top-to-bottom gradient vector (x1=0 y1=0 x2=0 y2=1)
-    // Rotate it around the center (0.5 0.5)
-    // CSS 180deg is Top->Bottom.
-    // SVG rotation is clockwise.
-    // If we start with Top->Bottom (0,0 -> 0,1), rotation by 0 is Top->Bottom.
-    // Matches CSS 180deg? No, CSS 180 is Top->Bottom.
-    // So if angle is 180, we want Top->Bottom.
-    // Let's just use the angle directly and see. Visual tweaking is acceptable.
     gradientDef = `
       <linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1" gradientTransform="rotate(${bg.angle || 0} 0.5 0.5)">
         ${stops}
@@ -74,27 +67,42 @@ export function generateBackgroundDefs(mood: Mood): string {
   `;
 }
 
-export function generateBackgroundRects(mood: Mood): string {
+export function generateBackgroundRects(mood: Mood, imageUrl?: string | null): string {
   const gradId = getGradientId(mood);
   const noiseId = getNoiseId(mood);
   const vignetteId = getVignetteId(mood);
 
-  // Layer 1: Base Gradient
-  const baseLayer = `<rect width="100%" height="100%" fill="url(#${gradId})" />`;
+  let baseLayer = '';
+  let imageLayer = '';
+  let overlayLayer = '';
 
-  // Layer 2: Noise Overlay
-  const noiseLayer = mood.background.grainOpacity > 0 
-    ? `<rect width="100%" height="100%" filter="url(#${noiseId})" opacity="${mood.background.grainOpacity}" />`
-    : '';
+  if (imageUrl) {
+      // IMAGE MODE
+      const cssFilter = getImageCssFilter(mood);
+      // We use preserveAspectRatio="xMidYMid slice" to simulate object-fit: cover
+      imageLayer = `<image href="${imageUrl}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="${cssFilter}" />`;
+      
+      // Color Overlay
+      overlayLayer = `<rect width="100%" height="100%" fill="${mood.image.overlayColor}" fill-opacity="${mood.image.overlayOpacity}" />`;
+  } else {
+      // PROCEDURAL MODE
+      baseLayer = `<rect width="100%" height="100%" fill="url(#${gradId})" />`;
+      
+      // Noise Overlay
+      overlayLayer = mood.background.grainOpacity > 0 
+        ? `<rect width="100%" height="100%" filter="url(#${noiseId})" opacity="${mood.background.grainOpacity}" />`
+        : '';
+  }
 
-  // Layer 3: Vignette Overlay
+  // Vignette Overlay (Always applied if strength > 0)
   const vignetteLayer = mood.background.vignetteStrength > 0
     ? `<rect width="100%" height="100%" fill="url(#${vignetteId})" />`
     : '';
 
   return `
     ${baseLayer}
-    ${noiseLayer}
+    ${imageLayer}
+    ${overlayLayer}
     ${vignetteLayer}
   `;
 }
@@ -107,10 +115,87 @@ export async function drawBackgroundToCanvas(
   ctx: CanvasRenderingContext2D,
   mood: Mood,
   width: number,
-  height: number
+  height: number,
+  imageUrl?: string | null
 ): Promise<void> {
+  // If imageUrl is present, we handle it with native canvas operations to avoid Tainted Canvas issues with SVG blobs
+  if (imageUrl) {
+      try {
+        // 1. Load Image
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = imageUrl;
+        });
+
+        // 2. Draw Image with "Cover" fit
+        const imgRatio = img.width / img.height;
+        const canvasRatio = width / height;
+        
+        let drawWidth, drawHeight, offsetX, offsetY;
+
+        if (imgRatio > canvasRatio) {
+            drawHeight = height;
+            drawWidth = height * imgRatio;
+            offsetY = 0;
+            offsetX = (width - drawWidth) / 2;
+        } else {
+            drawWidth = width;
+            drawHeight = width / imgRatio;
+            offsetX = 0;
+            offsetY = (height - drawHeight) / 2;
+        }
+
+        ctx.save();
+        ctx.filter = getCanvasFilter(mood);
+        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+        ctx.restore();
+
+        // 3. Draw Overlay
+        ctx.fillStyle = mood.image.overlayColor;
+        ctx.globalAlpha = mood.image.overlayOpacity;
+        ctx.fillRect(0, 0, width, height);
+        ctx.globalAlpha = 1.0;
+
+        // 4. Draw Vignette (Re-using SVG logic for vignette gradient)
+        const defs = generateBackgroundDefs(mood);
+        const vignetteRect = mood.background.vignetteStrength > 0
+            ? `<rect width="100%" height="100%" fill="url(#${getVignetteId(mood)})" />`
+            : '';
+
+        if (vignetteRect) {
+             const svgString = `
+            <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+              <defs>${defs}</defs>
+              ${vignetteRect}
+            </svg>`;
+            
+            const vImg = new Image();
+            const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            await new Promise((resolve) => {
+                vImg.onload = () => {
+                    ctx.drawImage(vImg, 0, 0, width, height);
+                    URL.revokeObjectURL(url);
+                    resolve(null);
+                };
+                vImg.src = url;
+            });
+        }
+        
+        return;
+
+      } catch (e) {
+          console.error("Failed to load export image, falling back to procedural", e);
+          // Fall through to procedural
+      }
+  }
+
+  // PROCEDURAL FALLBACK
   const defs = generateBackgroundDefs(mood);
-  const rects = generateBackgroundRects(mood);
+  const rects = generateBackgroundRects(mood, null);
 
   const svgString = `
     <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +216,6 @@ export async function drawBackgroundToCanvas(
     };
     img.onerror = (e) => {
       console.error('Failed to load background SVG for canvas', e);
-      // Fallback
       ctx.fillStyle = mood.bgColor;
       ctx.fillRect(0, 0, width, height);
       URL.revokeObjectURL(url);

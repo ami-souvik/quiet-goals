@@ -14,12 +14,23 @@ export interface MoodBackground {
   vignetteStrength: number; // 0 to 1
 }
 
+export interface ImageTuning {
+  blurRadius: number; // px
+  saturation: number; // 0-100% (CSS filter scale, so 100 is normal, 0 is gray)
+  contrast: number; // 0-100% (CSS filter)
+  brightness: number; // 0-100% (CSS filter)
+  overlayColor: string;
+  overlayOpacity: number; // 0-1
+  searchQuery: string;
+}
+
 export interface Mood {
   id: string;
   label: string;
   bgColor: string; // Fallback
   textColor: string;
   background: MoodBackground;
+  image: ImageTuning;
 
   // DOM (SVG / React)
   fontFamilyCss: string;
@@ -49,6 +60,15 @@ export const MOODS: Record<string, Mood> = {
       noiseScale: 0.8,
       vignetteStrength: 0.1
     },
+    image: {
+      blurRadius: 12,
+      saturation: 60,
+      contrast: 85,
+      brightness: 110,
+      overlayColor: '#F0F4F8',
+      overlayOpacity: 0.4,
+      searchQuery: 'mist fog white texture sky'
+    },
 
     fontFamilyCss: 'var(--font-roboto), sans-serif',
     fontFamilyCanvas: 'Roboto',
@@ -73,6 +93,15 @@ export const MOODS: Record<string, Mood> = {
       grainOpacity: 0.015,
       noiseScale: 0.5,
       vignetteStrength: 0
+    },
+    image: {
+      blurRadius: 8,
+      saturation: 0,
+      contrast: 100,
+      brightness: 105,
+      overlayColor: '#FFFFFF',
+      overlayOpacity: 0.3,
+      searchQuery: 'abstract geometric minimal white grey'
     },
 
     fontFamilyCss: 'var(--font-roboto), sans-serif',
@@ -100,6 +129,15 @@ export const MOODS: Record<string, Mood> = {
       noiseScale: 1.2,
       vignetteStrength: 0.2
     },
+    image: {
+      blurRadius: 10,
+      saturation: 70,
+      contrast: 90,
+      brightness: 95,
+      overlayColor: '#FDF6E3',
+      overlayOpacity: 0.5,
+      searchQuery: 'sand wood paper texture nature brown'
+    },
 
     fontFamilyCss: 'var(--font-playfair), serif',
     fontFamilyCanvas: 'Playfair Display',
@@ -124,6 +162,15 @@ export const MOODS: Record<string, Mood> = {
       grainOpacity: 0.04,
       noiseScale: 1.5,
       vignetteStrength: 0.3
+    },
+    image: {
+      blurRadius: 15,
+      saturation: 30,
+      contrast: 110,
+      brightness: 60,
+      overlayColor: '#000000',
+      overlayOpacity: 0.6,
+      searchQuery: 'dark black abstract texture stars space'
     },
 
     fontFamilyCss: 'var(--font-oswald), sans-serif',

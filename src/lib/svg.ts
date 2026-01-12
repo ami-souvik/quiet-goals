@@ -10,6 +10,7 @@ interface GenerateSvgParams {
   width: number;
   height: number;
   embedFont?: boolean;
+  backgroundImage?: string | null;
 }
 
 async function loadFontAsBase64(filename: string): Promise<string> {
@@ -39,6 +40,7 @@ export async function generateSvg({
   width,
   height,
   embedFont = false,
+  backgroundImage = null
 }: GenerateSvgParams): Promise<string> {
   const mood = getMood(moodId);
   const variant = getVariant(variantId);
@@ -92,7 +94,7 @@ export async function generateSvg({
   
   // Background Generation
   const bgDefs = generateBackgroundDefs(mood);
-  const bgRects = generateBackgroundRects(mood);
+  const bgRects = generateBackgroundRects(mood, backgroundImage);
 
   // Generate SVG lines
   const textElements = lines.map((line, i) => {

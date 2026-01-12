@@ -22,6 +22,7 @@ interface CanvasExportParams {
   width: number;
   height: number;
   filename: string;
+  backgroundImage?: string | null;
 }
 
 export async function exportWallpaperCanvas({
@@ -30,7 +31,8 @@ export async function exportWallpaperCanvas({
   variantId,
   width,
   height,
-  filename
+  filename,
+  backgroundImage
 }: CanvasExportParams) {
     const mood = getMood(moodId);
     const variant = getVariant(variantId);
@@ -56,7 +58,7 @@ export async function exportWallpaperCanvas({
     ctx.scale(dpr, dpr);
 
     // 3️⃣ Background
-    await drawBackgroundToCanvas(ctx, mood, width, height);
+    await drawBackgroundToCanvas(ctx, mood, width, height, backgroundImage);
 
     // 4️⃣ Font size & line height
     const isMobile = width < height;
