@@ -39,11 +39,20 @@ export default function Home() {
         </div>
 
         {/* Subtle SEO footer text */}
-        <footer className="pt-12">
+        <footer className="pt-12 space-y-6">
           <p className="text-xs text-stone-400 max-w-md mx-auto leading-relaxed">
             Quiet Goals is a minimalist tool for creating personal milestone wallpapers
             designed for focus, clarity, and calm.
           </p>
+          
+          <div className="pt-2">
+            <Link 
+              href="/blog" 
+              className="text-xs font-medium text-stone-500 hover:text-stone-900 border-b border-stone-200 hover:border-stone-900 transition-all duration-300"
+            >
+              Read Reflections
+            </Link>
+          </div>
         </footer>
       </div>
     </main>
