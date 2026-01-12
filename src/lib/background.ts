@@ -21,7 +21,7 @@ export function generateBackgroundDefs(mood: Mood): string {
   // 1. Main Gradient
   let gradientDef = '';
   const stops = bg.stops
-    .map((s) => `<stop offset="${s.offset}%") stop-color="${s.color}" />`)
+    .map((s) => `<stop offset="${s.offset}%" stop-color="${s.color}" />`)
     .join('\n');
 
   if (bg.type === 'linear') {
@@ -40,7 +40,7 @@ export function generateBackgroundDefs(mood: Mood): string {
     `;
   } else {
     gradientDef = `
-      <radialGradient id="${gradId}" cx="${bg.cx || 50}%") cy="${bg.cy || 50}%") r="80%">
+      <radialGradient id="${gradId}" cx="${bg.cx || 50}%" cy="${bg.cy || 50}%" r="80%">
         ${stops}
       </radialGradient>
     `;
