@@ -80,7 +80,7 @@ export function generateBackgroundRects(mood: Mood, imageUrl?: string | null): s
       // IMAGE MODE
       const cssFilter = getImageCssFilter(mood);
       // We use preserveAspectRatio="xMidYMid slice" to simulate object-fit: cover
-      imageLayer = `<image href="${imageUrl}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="${cssFilter}" />`;
+      imageLayer = `<image href="${imageUrl}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="filter: ${cssFilter}" />`;
       
       // Color Overlay
       overlayLayer = `<rect width="100%" height="100%" fill="${mood.image.overlayColor}" fill-opacity="${mood.image.overlayOpacity}" />`;

@@ -20,7 +20,7 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
   const [viewMode, setViewMode] = useState<"mobile" | "desktop">("mobile");
   const [svgContent, setSvgContent] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  
+
   // Background Image State
   const [bgMode, setBgMode] = useState<'procedural' | 'image'>('procedural');
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
@@ -31,52 +31,52 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
     mobile: { width: 1080, height: 1920 },
     desktop: { width: 1920, height: 1080 }
   };
-  
+
   // Fetch image when mood changes IF in image mode
   useEffect(() => {
-      if (bgMode === 'image') {
-          handleFetchImage(true);
-      } else {
-          setBackgroundImage(null);
-      }
+    if (bgMode === 'image') {
+      handleFetchImage(true);
+    } else {
+      setBackgroundImage(null);
+    }
   }, [moodId]);
 
   const handleFetchImage = async (forceRefetch = false) => {
-      if (isFetchingImage) return;
-      if (!forceRefetch && backgroundImage) return; // Don't refetch if we have one and just toggling back on
-      
-      setIsFetchingImage(true);
-      try {
-        const url = await fetchMoodImage(getMood(moodId));
-        if (url) {
-            setBackgroundImage(url);
-            setBgMode('image');
-        } else {
-            // Failed or no key, stay procedural
-            setBgMode('procedural');
-        }
-      } catch (e) {
-          console.error("Failed to fetch image", e);
-          setBgMode('procedural');
-      } finally {
-          setIsFetchingImage(false);
-      }
-  };
-  
-  const toggleBgMode = () => {
-      if (bgMode === 'procedural') {
-          setBgMode('image');
-          handleFetchImage(true);
+    if (isFetchingImage) return;
+    if (!forceRefetch && backgroundImage) return; // Don't refetch if we have one and just toggling back on
+
+    setIsFetchingImage(true);
+    try {
+      const url = await fetchMoodImage(getMood(moodId));
+      if (url) {
+        setBackgroundImage(url);
+        setBgMode('image');
       } else {
-          setBgMode('procedural');
-          setBackgroundImage(null);
+        // Failed or no key, stay procedural
+        setBgMode('procedural');
       }
+    } catch (e) {
+      console.error("Failed to fetch image", e);
+      setBgMode('procedural');
+    } finally {
+      setIsFetchingImage(false);
+    }
   };
-  
+
+  const toggleBgMode = () => {
+    if (bgMode === 'procedural') {
+      setBgMode('image');
+      handleFetchImage(true);
+    } else {
+      setBgMode('procedural');
+      setBackgroundImage(null);
+    }
+  };
+
   const refreshImage = () => {
-      if (bgMode === 'image') {
-          handleFetchImage(true);
-      }
+    if (bgMode === 'image') {
+      handleFetchImage(true);
+    }
   };
 
   useEffect(() => {
@@ -94,6 +94,7 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
           width,
           height,
           backgroundImage: bgMode === 'image' ? backgroundImage : null
+          // backgroundImage: 'https://cdn.pixabay.com/photo/2026/01/02/17/42/snow-10049005_1280.jpg'
         });
 
         if (active) {
@@ -127,6 +128,7 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
         height,
         filename: `quiet-goals-${size}.png`,
         backgroundImage: bgMode === 'image' ? backgroundImage : null
+        // backgroundImage: 'https://cdn.pixabay.com/photo/2026/01/02/17/42/snow-10049005_1280.jpg'
       });
     } catch (e) {
       console.error('Export failed', e);
@@ -138,58 +140,58 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
     <div className="flex flex-col items-center w-full max-w-2xl mx-auto space-y-8">
       {/* Controls */}
       <div className="flex flex-col gap-4 w-full">
-         <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4">
-            <div className="bg-white rounded-full p-1.5 shadow-sm border border-stone-100 inline-flex">
-              {(["mobile", "desktop"] as const).map((mode) => (
-                <button
-                  key={mode}
-                  onClick={() => setViewMode(mode)}
-                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 ${viewMode === mode
-                    ? "bg-stone-900 text-white shadow-md"
-                    : "text-stone-500 hover:text-stone-900"
-                    }`}
-                >
-                  {mode.charAt(0).toUpperCase() + mode.slice(1)}
-                </button>
-              ))}
-            </div>
-    
-            <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4">
+          <div className="bg-white rounded-full p-1.5 shadow-sm border border-stone-100 inline-flex">
+            {(["mobile", "desktop"] as const).map((mode) => (
               <button
-                onClick={() => handleDownload("mobile")}
-                className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
+                key={mode}
+                onClick={() => setViewMode(mode)}
+                className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 ${viewMode === mode
+                  ? "bg-stone-900 text-white shadow-md"
+                  : "text-stone-500 hover:text-stone-900"
+                  }`}
               >
-                Save Mobile
+                {mode.charAt(0).toUpperCase() + mode.slice(1)}
               </button>
-              <button
-                onClick={() => handleDownload("desktop")}
-                className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
-              >
-                Save Desktop
-              </button>
-            </div>
+            ))}
           </div>
-          
-          {/* Background Toggle */}
-          <div className="flex justify-center gap-4">
-              <button 
-                onClick={toggleBgMode}
-                disabled={isFetchingImage}
-                className={`text-xs font-medium transition-colors ${bgMode === 'image' ? 'text-stone-900' : 'text-stone-400 hover:text-stone-600'}`}
-              >
-                 {bgMode === 'image' ? 'Disable Image Background' : 'Enable Image Background (Optional)'}
-              </button>
-              
-              {bgMode === 'image' && (
-                  <button 
-                    onClick={refreshImage}
-                    disabled={isFetchingImage}
-                    className="text-xs font-medium text-stone-500 hover:text-stone-900 flex items-center gap-1"
-                  >
-                     <span>⟳</span> Shuffle Image
-                  </button>
-              )}
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => handleDownload("mobile")}
+              className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
+            >
+              Save Mobile
+            </button>
+            <button
+              onClick={() => handleDownload("desktop")}
+              className="px-4 py-2 bg-white border border-stone-200 text-stone-900 rounded-lg text-xs font-medium hover:bg-stone-50 hover:border-stone-300 transition-all"
+            >
+              Save Desktop
+            </button>
           </div>
+        </div>
+
+        {/* Background Toggle */}
+        <div className="flex justify-center gap-4">
+          <button
+            onClick={toggleBgMode}
+            disabled={isFetchingImage}
+            className={`text-xs font-medium transition-colors ${bgMode === 'image' ? 'text-stone-900' : 'text-stone-400 hover:text-stone-600'}`}
+          >
+            {bgMode === 'image' ? 'Disable Image Background' : 'Enable Image Background (Optional)'}
+          </button>
+
+          {bgMode === 'image' && (
+            <button
+              onClick={refreshImage}
+              disabled={isFetchingImage}
+              className="text-xs font-medium text-stone-500 hover:text-stone-900 flex items-center gap-1"
+            >
+              <span>⟳</span> Shuffle Image
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Preview Canvas */}
@@ -203,7 +205,7 @@ export default function PreviewPanel({ text, moodId, variantId, animate }: Previ
         {(loading || isFetchingImage) && (
           <div className="absolute inset-0 flex items-center justify-center bg-stone-100 z-10 opacity-80">
             <span className="text-stone-400 text-sm animate-pulse">
-                {isFetchingImage ? 'Fetching image...' : 'Updating...'}
+              {isFetchingImage ? 'Fetching image...' : 'Updating...'}
             </span>
           </div>
         )}

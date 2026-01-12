@@ -1,6 +1,6 @@
 import { Mood } from './moods';
 
-const PIXABAY_API_KEY = process.env.NEXT_PUBLIC_PIXABAY_API_KEY;
+const PIXABAY_API_KEY = '54166029-7e647a4dd4bae5551d33469c8';
 const API_URL = 'https://pixabay.com/api/';
 
 export async function fetchMoodImage(mood: Mood): Promise<string | null> {

@@ -59,6 +59,7 @@ export async function exportWallpaperCanvas({
 
     // 3️⃣ Background
     await drawBackgroundToCanvas(ctx, mood, width, height, backgroundImage);
+    ctx.filter = 'blur(10px)';
 
     // 4️⃣ Font size & line height
     const isMobile = width < height;
