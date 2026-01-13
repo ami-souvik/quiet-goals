@@ -12,17 +12,17 @@ export default function HeadlessGenerator() {
         // We'll assume parsed object or parse it
         let data = event.data;
         if (typeof data === 'string') {
-            try {
-                data = JSON.parse(data);
-            } catch (e) {
-                // Ignore non-JSON messages
-                return;
-            }
+          try {
+            data = JSON.parse(data);
+          } catch (e) {
+            // Ignore non-JSON messages
+            return;
+          }
         }
 
         if (data?.type === 'GENERATE_SVG') {
           const { text, moodId, variantId, width, height, backgroundImage } = data.payload;
-          
+
           const svg = await generateSvg({
             text,
             moodId,
@@ -35,11 +35,11 @@ export default function HeadlessGenerator() {
           // Send result back
           // @ts-ignore
           if (window.ReactNativeWebView) {
-             // @ts-ignore
-             window.ReactNativeWebView.postMessage(JSON.stringify({
-                type: 'SVG_GENERATED',
-                payload: svg
-             }));
+            // @ts-ignore
+            window.ReactNativeWebView.postMessage(JSON.stringify({
+              type: 'SVG_GENERATED',
+              payload: svg
+            }));
           }
         }
       } catch (e) {
@@ -53,8 +53,8 @@ export default function HeadlessGenerator() {
     document.addEventListener('message', handleMessage);
 
     return () => {
-        window.removeEventListener('message', handleMessage);
-        document.removeEventListener('message', handleMessage);
+      window.removeEventListener('message', handleMessage);
+      document.removeEventListener('message', handleMessage);
     };
   }, []);
 

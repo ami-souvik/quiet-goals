@@ -38,6 +38,9 @@ export interface Mood {
   // Canvas (EXPORT ONLY)
   fontFamilyCanvas: string;
 
+  // React Native (Remote Logic)
+  fontFamilyNative: string;
+
   fontFile: string;
   uppercase: boolean;
   scalingFactor: number;
@@ -72,6 +75,7 @@ export const MOODS: Record<string, Mood> = {
 
     fontFamilyCss: 'var(--font-roboto), sans-serif',
     fontFamilyCanvas: 'Roboto',
+    fontFamilyNative: 'Roboto-Regular',
 
     fontFile: 'Roboto-Regular.ttf',
     uppercase: false,
@@ -106,6 +110,7 @@ export const MOODS: Record<string, Mood> = {
 
     fontFamilyCss: 'var(--font-roboto), sans-serif',
     fontFamilyCanvas: 'Roboto',
+    fontFamilyNative: 'Roboto-Regular',
 
     fontFile: 'Roboto-Regular.ttf',
     uppercase: false,
@@ -141,6 +146,7 @@ export const MOODS: Record<string, Mood> = {
 
     fontFamilyCss: 'var(--font-playfair), serif',
     fontFamilyCanvas: 'Playfair Display',
+    fontFamilyNative: 'PlayfairDisplay-Regular',
 
     fontFile: 'PlayfairDisplay-Regular.ttf',
     uppercase: false,
@@ -175,6 +181,7 @@ export const MOODS: Record<string, Mood> = {
 
     fontFamilyCss: 'var(--font-oswald), sans-serif',
     fontFamilyCanvas: 'Oswald',
+    fontFamilyNative: 'Oswald-Bold',
 
     fontFile: 'Oswald-Bold.ttf',
     uppercase: true,

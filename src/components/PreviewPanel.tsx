@@ -52,7 +52,6 @@ export default function PreviewPanel({
           width,
           height,
           backgroundImage: bgMode === 'image' ? backgroundImage : null
-          // backgroundImage: 'https://cdn.pixabay.com/photo/2026/01/02/17/42/snow-10049005_1280.jpg'
         });
 
         if (active) {

@@ -90,7 +90,9 @@ export async function generateSvg({
 
   // Font Embedding
   const fontStyles = '';
-  const fontFamilyStack = `'ExportFont', ${mood.fontFamilyCss}`;
+  // Include Native font family in the stack for React Native support
+  const nativeFont = mood.fontFamilyNative ? `, '${mood.fontFamilyNative}'` : '';
+  const fontFamilyStack = `'ExportFont', ${mood.fontFamilyCss}${nativeFont}`;
   
   // Background Generation
   const bgDefs = generateBackgroundDefs(mood);
