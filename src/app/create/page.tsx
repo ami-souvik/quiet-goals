@@ -114,7 +114,7 @@ export default function CreatePage() {
 
         <div className={`
             w-full h-full flex items-center justify-center transition-all duration-500
-            ${hideControls ? 'pb-24 scale-100' : 'pb-[58vh] scale-95 lg:scale-100 lg:pb-0'}
+            ${hideControls ? 'pb-24 scale-100' : 'pb-[56vh] scale-100 lg:pb-0'}
          `}>
           <div className="w-full max-w-[400px] lg:max-w-none lg:w-full lg:h-full lg:flex lg:items-center lg:justify-center lg:sticky lg:top-0">
             <PreviewPanel
@@ -129,7 +129,8 @@ export default function CreatePage() {
                 mobileMaxHeight: hideControls ? '75vh' : '40vh'
               }}
             />
-          </div>        </div>
+          </div>
+        </div>
       </div>
 
     </div>

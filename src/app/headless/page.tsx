@@ -20,18 +20,18 @@ export default function HeadlessGenerator() {
           }
         }
 
-        if (data?.type === 'GENERATE_SVG') {
-          const { text, moodId, variantId, width, height, backgroundImage } = data.payload;
-
-          const svg = await generateSvg({
-            text,
-            moodId,
-            variantId,
-            width,
-            height,
-            backgroundImage
-          });
-
+                if (data?.type === 'GENERATE_SVG') {
+                  const { text, moodId, variantId, width, height, backgroundImage, isNative } = data.payload;
+                  
+                  const svg = await generateSvg({
+                    text,
+                    moodId,
+                    variantId,
+                    width,
+                    height,
+                    backgroundImage,
+                    isNative
+                  });
           // Send result back
           // @ts-ignore
           if (window.ReactNativeWebView) {

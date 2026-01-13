@@ -11,6 +11,7 @@ interface GenerateSvgParams {
   height: number;
   embedFont?: boolean;
   backgroundImage?: string | null;
+  isNative?: boolean;
 }
 
 async function loadFontAsBase64(filename: string): Promise<string> {
@@ -40,7 +41,8 @@ export async function generateSvg({
   width,
   height,
   embedFont = false,
-  backgroundImage = null
+  backgroundImage = null,
+  isNative = false
 }: GenerateSvgParams): Promise<string> {
   const mood = getMood(moodId);
   const variant = getVariant(variantId);
@@ -56,23 +58,8 @@ export async function generateSvg({
   const displayText = mood.uppercase ? text.toUpperCase() : text;
   
   // Measure text to wrap
-  let lines: string[] = [displayText];
-  
-  if (typeof window !== 'undefined') {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      let fontFamily = 'sans-serif';
-      if (moodId === 'grounded') fontFamily = 'serif';
-      if (moodId === 'ambitious') fontFamily = 'sans-serif';
-      
-      ctx.font = `${variant.fontWeight} ${fontSize}px ${fontFamily}`;
-      
-      // Max text width: 80% of screen width
-      const maxTextWidth = width * 0.8;
-      lines = wrapText(ctx, displayText, maxTextWidth);
-    }
-  }
+  const maxTextWidth = width * 0.8;
+  const lines = wrapText(displayText, maxTextWidth, fontSize);
 
   // Calculate Vertical Position
   const totalTextHeight = lines.length * lineHeight;
@@ -90,17 +77,51 @@ export async function generateSvg({
 
   // Font Embedding
   const fontStyles = '';
-  // Include Native font family in the stack for React Native support
-  const nativeFont = mood.fontFamilyNative ? `, '${mood.fontFamilyNative}'` : '';
-  const fontFamilyStack = `'ExportFont', ${mood.fontFamilyCss}${nativeFont}`;
+  
+  // Construct Font Stack
+  // If Native: Force the single native font name (e.g., 'PlayfairDisplay-Regular')
+  // If Web: Use the stack with variable (e.g., 'ExportFont', var(--font-...), ...)
+  let fontFamilyStack = '';
+  
+  if (isNative && mood.fontFamilyNative) {
+      fontFamilyStack = `'${mood.fontFamilyNative}'`;
+  } else {
+      const nativeFont = mood.fontFamilyNative ? `, '${mood.fontFamilyNative}'` : '';
+      fontFamilyStack = `'ExportFont', ${mood.fontFamilyCss}${nativeFont}`;
+  }
   
   // Background Generation
   const bgDefs = generateBackgroundDefs(mood);
   const bgRects = generateBackgroundRects(mood, backgroundImage);
 
+  // Helper to escape XML characters
+  const escapeXml = (unsafe: string) => {
+    return unsafe.replace(/[<>&'"]/g, (c) => {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+            default: return c;
+        }
+    });
+  };
+
   // Generate SVG lines
   const textElements = lines.map((line, i) => {
-    return `<text x="${x}" y="${startY + i * lineHeight}" text-anchor="middle" fill="${mood.textColor}" fill-opacity="${variant.opacity}">${line}</text>`;
+    const escapedLine = escapeXml(line);
+    return `<text
+      x="${x}" 
+      y="${startY + i * lineHeight}" 
+      text-anchor="middle" 
+      fill="${mood.textColor}" 
+      fill-opacity="${variant.opacity}"
+      font-family="${fontFamilyStack}"
+      font-size="${fontSize}"
+      font-weight="${variant.fontWeight}"
+      letter-spacing="${variant.letterSpacing}"
+    >${escapedLine}</text>`;
   }).join('\n');
 
   const svgContent = `

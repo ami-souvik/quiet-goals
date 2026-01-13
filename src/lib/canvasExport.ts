@@ -76,8 +76,6 @@ export async function exportWallpaperCanvas({
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = mood.textColor;
     ctx.globalAlpha = variant.opacity;
-    console.log('Context');
-    console.log(ctx);
 
     // 🔑 VARIABLE FONT WEIGHT FIX
     if ('fontVariationSettings' in ctx) {
@@ -87,7 +85,7 @@ export async function exportWallpaperCanvas({
 
   // 6️⃣ Wrap text (same logic as SVG)
   const maxTextWidth = width * 0.8;
-  const lines = wrapText(ctx, displayText, maxTextWidth);
+  const lines = wrapText(displayText, maxTextWidth, fontSize);
 
   // 7️⃣ Vertical alignment
   const totalTextHeight = lines.length * lineHeight;

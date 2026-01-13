@@ -1,10 +1,11 @@
 export function wrapText(
-  ctx: CanvasRenderingContext2D,
   text: string,
-  maxWidth: number
+  maxWidth: number,
+  fontSize: number
 ): string[] {
   const lines: string[] = [];
   const paragraphs = text.split('\n');
+  const avgCharWidth = fontSize * 0.55; // Approximate width factor
 
   for (const paragraph of paragraphs) {
     if (paragraph === '') {
@@ -17,8 +18,9 @@ export function wrapText(
 
     for (let i = 1; i < words.length; i++) {
       const word = words[i];
-      const width = ctx.measureText(currentLine + ' ' + word).width;
-      if (width < maxWidth) {
+      const estimatedWidth = (currentLine.length + 1 + word.length) * avgCharWidth;
+      
+      if (estimatedWidth < maxWidth) {
         currentLine += ' ' + word;
       } else {
         lines.push(currentLine);
