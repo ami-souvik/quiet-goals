@@ -1,5 +1,6 @@
 export interface Variant {
   id: string;
+  icon: string;
   label: string;
   verticalAlign: 'center' | 'bottom' | 'top';
   fontScale: number; // Multiplier relative to screen width
@@ -13,7 +14,10 @@ export interface Variant {
 export const VARIANTS: Record<string, Variant> = {
   'center-soft': {
     id: 'center-soft',
-    label: 'Center Soft',
+    icon: `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg">
+      <path fill="none" d="M0 0h24v24H0z"></path><path d="M8 19h3v4h2v-4h3l-4-4-4 4zm8-14h-3V1h-2v4H8l4 4 4-4zM4 11v2h16v-2H4z"></path>
+    </svg>`,
+    label: 'Soft',
     verticalAlign: 'center',
     fontScale: 1.0, 
     fontWeight: 400,
@@ -24,7 +28,10 @@ export const VARIANTS: Record<string, Variant> = {
   },
   'center-bold': {
     id: 'center-bold',
-    label: 'Center Bold',
+    icon: `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg">
+      <path fill="none" d="M0 0h24v24H0z"></path><path d="M8 19h3v4h2v-4h3l-4-4-4 4zm8-14h-3V1h-2v4H8l4 4 4-4zM4 11v2h16v-2H4z"></path>
+    </svg>`,
+    label: 'Bold',
     verticalAlign: 'center',
     fontScale: 1.2,
     fontWeight: 700,
@@ -35,7 +42,11 @@ export const VARIANTS: Record<string, Variant> = {
   },
   'bottom-subtle': {
     id: 'bottom-subtle',
-    label: 'Bottom Subtle',
+    icon: `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg">
+      <path fill="none" d="M0 0h24v24H0z"></path>
+      <path d="M16 13h-3V3h-2v10H8l4 4 4-4zM4 19v2h16v-2H4z"></path>
+    </svg>`,
+    label: 'Subtle',
     verticalAlign: 'bottom',
     fontScale: 0.8,
     fontWeight: 400,
@@ -46,7 +57,11 @@ export const VARIANTS: Record<string, Variant> = {
   },
   'top-minimal': {
     id: 'top-minimal',
-    label: 'Top Minimal',
+    icon: `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg">
+      <path fill="none" d="M0 0h24v24H0z"></path>
+      <path d="M8 11h3v10h2V11h3l-4-4-4 4zM4 3v2h16V3H4z"></path>
+    </svg>`,
+    label: 'Minimal',
     verticalAlign: 'top',
     fontScale: 0.7,
     fontWeight: 400,

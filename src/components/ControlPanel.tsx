@@ -4,9 +4,6 @@ import { useEffect } from "react";
 import { getMood, MOODS } from "@/lib/moods";
 import { fetchMoodImage } from "@/lib/images";
 import { VARIANTS } from "@/lib/variants";
-import { MdVerticalAlignTop } from "react-icons/md";
-import { MdVerticalAlignCenter } from "react-icons/md";
-import { MdVerticalAlignBottom } from "react-icons/md";
 
 interface ControlPanelProps {
     text: string;
