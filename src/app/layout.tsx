@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${lora.variable} ${roboto.variable} ${playfair.variable} ${oswald.variable} ${raleway.variable} font-sans`}>
         <header className="w-full mx-auto max-w-4xl flex justify-between items-center px-4">
           <p className="font-serif text-xl md:text-2xl">Quiet Goals</p>
-          <a href="https://play.google.com/store/apps/details?id=com.yourapp.package" target="_blank" rel="noopener">
+          <a href="https://play.google.com/store/apps/details?id=com.qurtesy.quietgoals" target="_blank" rel="noopener">
             <img
               src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
               alt="Get it on Google Play"
