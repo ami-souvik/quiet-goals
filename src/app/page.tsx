@@ -2,17 +2,17 @@ import Link from "next/link";
 
 export default function Home() {
    return (
-      <main className="flex min-h-screen flex-col items-center justify-center px-6 py-16 md:py-40 text-center bg-stone-50">
-         <div className="max-w-3xl space-y-14">
+      <main className="flex min-h-screen flex-col items-center justify-center px-6 py-16 md:py-26 text-center bg-stone-50">
+         <div className="max-w-3xl space-y-4 md:space-y-14">
             {/* Hero */}
-            <header className="space-y-6">
+            <div className="space-y-6">
                <h1 className="font-serif text-5xl md:text-7xl font-medium tracking-tight text-stone-900">
                   Quiet Goals
                </h1>
                <h2 className="text-xl md:text-2xl text-stone-600 font-sans leading-relaxed max-w-2xl mx-auto">
-                  Turn your most important milestone into a calm, private wallpaper.
+                  Turn your most important milestone<br />into a calm, private wallpaper.
                </h2>
-            </header>
+            </div>
 
             {/* Value proposition */}
             <section className="space-y-6 max-w-xl mx-auto">
@@ -99,39 +99,6 @@ export default function Home() {
                      <p className="text-stone-600 leading-relaxed font-light">
                         Most apps scream for attention. Quiet Goals whispers. We believe that true focus doesn't need notifications—it just needs clarity.
                      </p>
-                  </div>
-               </div>
-            </section>
-
-            {/* Coming Soon Section */}
-            <section className="pt-12 pb-24 w-full">
-               <div className="bg-white border border-stone-200 rounded-3xl p-8 md:p-12 max-w-4xl mx-auto shadow-sm">
-                  <h3 className="text-sm font-bold text-stone-400 uppercase tracking-widest mb-6">
-                     Coming Soon to iOS & Android
-                  </h3>
-                  <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-6">
-                     Quiet Goals App
-                  </h2>
-                  <p className="text-stone-600 max-w-xl mx-auto mb-10 leading-relaxed">
-                     We are building a dedicated mobile experience to bring even more calm to your device.
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                     <div className="p-4 bg-stone-50 rounded-xl">
-                        <span className="block text-xl mb-2">✨</span>
-                        <h4 className="font-medium text-stone-900 mb-1">Home Screen Widgets</h4>
-                        <p className="text-xs text-stone-500">Glanceable goals without unlocking.</p>
-                     </div>
-                     <div className="p-4 bg-stone-50 rounded-xl">
-                        <span className="block text-xl mb-2">🌙</span>
-                        <h4 className="font-medium text-stone-900 mb-1">Auto Dark Mode</h4>
-                        <p className="text-xs text-stone-500">Wallpapers that adapt to sunset.</p>
-                     </div>
-                     <div className="p-4 bg-stone-50 rounded-xl">
-                        <span className="block text-xl mb-2">☁️</span>
-                        <h4 className="font-medium text-stone-900 mb-1">iCloud Sync</h4>
-                        <p className="text-xs text-stone-500">Your goals across all devices.</p>
-                     </div>
                   </div>
                </div>
             </section>

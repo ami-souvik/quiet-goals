@@ -19,7 +19,7 @@ export default function Blog() {
                     <span className="text-stone-900">Reflections</span>
                 </nav>
             </div>
-            
+
             <div className="w-full flex justify-center py-12 md:py-20">
                 <section className="w-full max-w-3xl md:max-w-5xl xl:max-w-6xl px-6">
                     <div className="mb-16 max-w-2xl">
@@ -42,6 +42,22 @@ export default function Blog() {
                     </ul>
                 </section>
             </div>
+
+            {/* Minimalist Footer */}
+            <footer className="w-full border-t border-stone-200 pt-12 pb-8">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-stone-500">
+                    <p>© {new Date().getFullYear()} Quiet Goals.</p>
+
+                    <nav className="flex gap-6">
+                        <Link href="/blog" className="hover:text-stone-900 transition-colors">Reflections</Link>
+                        <a href="#" className="hover:text-stone-900 transition-colors cursor-not-allowed opacity-50" title="Coming soon">Twitter</a>
+                        <Link href="/privacy" className="hover:text-stone-900 transition-colors">Privacy</Link>
+                    </nav>
+                </div>
+                <p className="mt-8 text-xs text-stone-400 font-light">
+                    Designed for focus. Built with silence.
+                </p>
+            </footer>
         </div>
     );
 }

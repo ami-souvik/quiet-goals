@@ -73,11 +73,11 @@ export const MOODS: Record<string, Mood> = {
       searchQuery: 'mist fog white texture sky'
     },
 
-    fontFamilyCss: 'var(--font-roboto), sans-serif',
-    fontFamilyCanvas: 'Roboto',
-    fontFamilyNative: 'Roboto-Regular',
+    fontFamilyCss: 'var(--font-raleway), sans-serif',
+    fontFamilyCanvas: 'Raleway',
+    fontFamilyNative: 'Raleway',
 
-    fontFile: 'Roboto-Regular.ttf',
+    fontFile: 'Raleway-Regular.ttf',
     uppercase: false,
     scalingFactor: 1.0,
   },
@@ -110,7 +110,7 @@ export const MOODS: Record<string, Mood> = {
 
     fontFamilyCss: 'var(--font-roboto), sans-serif',
     fontFamilyCanvas: 'Roboto',
-    fontFamilyNative: 'Roboto-Regular',
+    fontFamilyNative: 'Roboto',
 
     fontFile: 'Roboto-Regular.ttf',
     uppercase: false,
@@ -146,7 +146,7 @@ export const MOODS: Record<string, Mood> = {
 
     fontFamilyCss: 'var(--font-playfair), serif',
     fontFamilyCanvas: 'Playfair Display',
-    fontFamilyNative: 'PlayfairDisplay-Regular',
+    fontFamilyNative: 'Playfair',
 
     fontFile: 'PlayfairDisplay-Regular.ttf',
     uppercase: false,
@@ -181,7 +181,7 @@ export const MOODS: Record<string, Mood> = {
 
     fontFamilyCss: 'var(--font-oswald), sans-serif',
     fontFamilyCanvas: 'Oswald',
-    fontFamilyNative: 'Oswald-Bold',
+    fontFamilyNative: 'Oswald',
 
     fontFile: 'Oswald-Bold.ttf',
     uppercase: true,
