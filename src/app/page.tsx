@@ -2,34 +2,33 @@ import Link from "next/link";
 
 export default function Home() {
    return (
-      <main className="flex min-h-screen flex-col items-center justify-center px-6 py-16 md:py-26 text-center bg-stone-50">
+      <main className="flex flex-col items-center justify-center px-6 py-16 md:py-26 text-center bg-stone-50">
          <div className="max-w-3xl space-y-4 md:space-y-14">
-            {/* Hero */}
-            <div className="space-y-6">
-               <h1 className="font-serif text-5xl md:text-7xl font-medium tracking-tight text-stone-900">
-                  Quiet Goals
-               </h1>
-               <h2 className="text-xl md:text-2xl text-stone-600 font-sans leading-relaxed max-w-2xl mx-auto">
-                  Turn your most important milestone<br />into a calm, private wallpaper.
-               </h2>
-            </div>
+            <div className="py-10 space-y-4 md:space-y-14">
+               {/* Hero */}
+               <div className="space-y-6">
+                  <h1 className="font-serif text-5xl md:text-7xl font-medium tracking-tight text-stone-900">
+                     Quiet Goals
+                  </h1>
+                  <h2 className="text-xl md:text-2xl text-stone-600 font-sans leading-relaxed max-w-2xl mx-auto">
+                     Turn your most important milestone<br />into a calm, private wallpaper.
+                  </h2>
+               </div>
 
-            {/* Value proposition */}
-            <section className="space-y-6 max-w-xl mx-auto">
-               <p className="text-lg leading-relaxed text-stone-500">
-                  Your phone is the screen you look at the most.
-                  Quiet Goals helps you place one meaningful goal there —
-                  gently, without noise or distraction.
-               </p>
+               {/* Value proposition */}
+               <section className="space-y-6 max-w-xl mx-auto">
+                  <p className="text-lg leading-relaxed text-stone-500">
+                     Your phone is the screen you look at the most.
+                     Quiet Goals helps you place one meaningful goal there —
+                     gently, without noise or distraction.
+                  </p>
+                  <p className="text-base text-stone-400">
+                     No social feed. No notifications. No performance.
+                     Just a quiet reminder of what you’re working toward.
+                  </p>
+               </section>
 
-               <p className="text-base text-stone-400">
-                  No social feed. No notifications. No performance.
-                  Just a quiet reminder of what you’re working toward.
-               </p>
-            </section>
-
-            {/* CTA */}
-            <div className="pt-6">
+               {/* CTA */}
                <Link
                   href="/create"
                   className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-medium text-stone-900 bg-transparent border border-stone-300 rounded-full hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all duration-300 ease-out"
@@ -39,7 +38,7 @@ export default function Home() {
             </div>
 
             {/* Examples Section */}
-            <section className="pt-20 pb-10 w-full">
+            <section className="py-10 w-full">
                <h3 className="text-sm font-bold text-stone-400 uppercase tracking-widest mb-10">
                   Milestones
                </h3>
